@@ -1,0 +1,6 @@
+{
+  "content": "{\"data\":{\"Anxiety OD\":{\"childorder\":[\"Level\",\"Drive\",\"Tone\",\"Hi-Lo\"],\"children\":{\"Drive\":{\"type\":0,\"value\":48},\"Hi-Lo\":{\"state\":false,\"type\":1},\"Level\":{\"type\":0,\"value\":50},\"Tone\":{\"type\":0,\"value\":50}}}},\"info\":{\"version\":\"1.0.9\"}}",
+  "id": "21c7520e-c3fe-42b5-8821-5dc19b5873bb",
+  "readonly": false,
+  "type": "ANXIETY OD"
+}

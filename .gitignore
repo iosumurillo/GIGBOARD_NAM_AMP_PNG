@@ -1,0 +1,25 @@
+# Ignore temporary files
+*.img
+*.rootfs
+*.ext4
+*.7z
+*.xz
+*.tar.gz
+*.bin
+
+# Build & temp caches
+build/
+dist/
+pyi_build/
+__pycache__/
+
+# Allow release executables
+!release/*.exe
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*~
