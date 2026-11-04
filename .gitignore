@@ -1,0 +1,57 @@
+# Prerequisites and Firmware Blobs
+# Large firmware images & rootfs dumps generated during local runs
+*.img
+*.rootfs
+*.ext4
+*.7z
+*.xz
+*.tar.gz
+
+# Firmware updater executables (distribute these via GitHub Releases)
+*Updater*.exe
+rootfs.bin
+test_*.bin
+test_*.img
+
+# Build outputs & temp dirs
+build/
+build-*/
+dist/
+pyi_build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Object and library files
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.bin
+*.exe
+*.dll
+
+# UN-IGNORE essential precompiled ARM binaries and reverse-engineered binary patches
+!blobs/*.so
+!blobs/*.bin
+!tools/*.bin
+
+# Vendored external dependencies (fetched by scripts/fetch_nam_core.sh on demand)
+/nam_core/
+
+# Python byte-code & caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.spec
+
+# System & Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
