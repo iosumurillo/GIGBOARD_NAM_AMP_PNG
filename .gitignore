@@ -33,10 +33,11 @@ Makefile
 *.exe
 *.dll
 
-# UN-IGNORE essential precompiled ARM binaries and reverse-engineered binary patches
+# UN-IGNORE essential precompiled ARM binaries, binary patches and release executables
 !blobs/*.so
 !blobs/*.bin
 !tools/*.bin
+!release/*.exe
 
 # Vendored external dependencies (fetched by scripts/fetch_nam_core.sh on demand)
 /nam_core/
