@@ -171,5 +171,35 @@ El bloque **82 LEAD 800 (NAM)** ofrece una sección completa de ecualización ac
        └── 04_Friedman_BE100.nam
    ```
 3. Los perfiles se indexan en estricto orden alfabético. Nombrarlos con prefijos numéricos (`01_`, `02_`, etc.) te facilitará saber exactamente qué modelo corresponde a cada tramo del potenciómetro selector.
-4. Conecta el USB a la toma trasera de la Gigboard antes de encender o antes de entrar al rig.
+4. El motor escanea de forma recursiva los archivos `.nam` en las rutas soportadas (`/media/az01-internal/Evil/usb_mnt/NAM`, `/media/az01-internal/Evil/NAM`, `/media/az01-internal/NAM`, `/NAM` y carpeta de IRs) usando un hilo de baja prioridad (`SCHED_IDLE` y `nice(19)`) para no afectar al hilo de audio.
+5. Conecta el USB a la toma trasera de la Gigboard antes de encender o antes de entrar al rig.
+
+---
+
+## 6. Amplificadores Custom Circuit-Modeled (IDs 53–62)
+
+Además de los dos bloques NAM, el firmware expande la lista interna de amplificadores de **53 a 63 modelos** sin eliminar ninguno de los originales, incorporando 10 amplificadores modelados a nivel de circuito (con sobremuestreo 2x a 96 kHz en modelos seleccionados y gráficos 290×119 integrados en pantalla):
+
+| DSP ID | Hex | Modelo | Descripción técnica |
+| :---: | :---: | :--- | :--- |
+| **53** | `0x35` | **Mesa Triple Crown Ch2** | Canal crunch/drive (`MesaTripleCrownDSP`, 96 kHz oversampled) |
+| **54** | `0x36` | **Mesa Lone Star** | Limpios cálidos 3D y overdrive clásico (`MesaLoneStarDSP`) |
+| **55** | `0x37` | **Mesa Triple Crown Lead** | Canal Lead de alta ganancia (`MesaTripleCrownDSP` canal 3) |
+| **56** | `0x38` | **Dumble Steel String Singer** | Limpio de alto headroom 100W–150W (`DumbleSSSDSP`) |
+| **57** | `0x39` | **Dumble Overdrive Special** | Canal Overdrive tipo #102/#124 (`DumbleODSDSP`) |
+| **58** | `0x3a` | **Elmwood Bonneville 50** | Crunch británico/sueco EL34 de 50W (`ElmwoodBonnevilleDSP`) |
+| **59** | `0x3b` | **IRENE** | Clean Reference Engine (híbrido Dumble SSS + Mesa Lone Star con compresión óptica suave) |
+| **60** | `0x3c` | **JON** | Modern Progressive Overdrive Engine de 3 voces (`JonOverdriveDSP`) |
+| **61** | `0x3d` | **5150 Original 1992 Rhythm** | Canal Rhythm (`Peavey5150DSP`, layout UI `0x29`: Pre Gain, Resonance, Post, Presence) |
+| **62** | `0x3e` | **5150 Original LEAD** | Canal Lead (`Peavey5150DSP`, layout UI `0x2b`) |
+
+En el primer arranque sobre almacenamiento interno (`/media/az01-internal/Evil/usb_mnt/Blocks/AMP`) también se crean automáticamente los 3 bloques preconfigurados de Mesa TC-100 (`MESA TC-100 CH1 CLEAN.block`, `CH2 LO-GAIN.block`, `CH3 HI-GAIN.block`), también disponibles en `presets/AMP/`.
+
+---
+
+## 7. Modo Ingeniería (Dev Mode) y Medidor de CPU DSP
+
+- **Pantallas ocultas desbloqueadas:** `RedirCtrl EnableDevAccess` queda activado por defecto y `GlobalSettings.qml` habilita el acceso a los menús de ingeniería (`dev menu`, `ampTweak` y `fftDisplay`).
+- **Soporte táctil en Dev Mode:** Los componentes `DevComboWithText.qml`, `NotifyKnobWithTexts.qml` y `NotifyButtonWithText.qml` están parcheados para responder directamente a la pantalla táctil.
+- **Medidor de CPU DSP siempre visible:** `ShowCPUTime` se activa por defecto al arranque junto con el overlay `EngineInfo.qml` para monitorizar en tiempo real la carga de CPU de cada modelo NAM o amplificador custom.
 

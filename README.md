@@ -13,10 +13,12 @@ Para instalar el mod en tu pedalera sin necesidad de compilar código fuente:
 
 | Archivo | Descripción | Descarga Directa |
 | :--- | :--- | :--- |
-| **Firmware Updater (NAM A2 extended mod)** | Flasheador automático para HeadRush Gigboard con soporte Dual NAM + Amp + Tone Stack | [Descargar .exe](https://github.com/iosumurillo/GIGBOARD_NAM_AMP_PNG/releases/download/v2.7-nam-extended/HeadRush.gigboard.Firmware.Updater.NAM.A2.extended.mod.exe) |
-| **HeadRush NAM Block Manager** | Gestor de perfiles `.nam`, ordenación USB y generador de `.block` para Windows 10/11 | [Descargar .exe](https://github.com/iosumurillo/GIGBOARD_NAM_AMP_PNG/releases/download/v2.7-nam-extended/HeadRush_NAM_Block_Manager.exe) |
+| **Firmware Updater (NAM + Triple Crown + Dev)** | Flasheador completo para HeadRush Gigboard: Dual NAM + 10 amplis custom DSP (Triple Crown, Lone Star, Dumble, Bonneville, IRENE, JON, 5150) + Dev Mode y CPU overlay | [release/HeadRush gigboard Firmware Updater (NAM + Triple Crown + Dev).exe](release/HeadRush%20gigboard%20Firmware%20Updater%20(NAM%20+%20Triple%20Crown%20+%20Dev).exe) |
+| **Firmware Updater (NAM A2 extended mod)** | Misma compilación actualizada disponible con el nombre clásico | [release/HeadRush gigboard Firmware Updater (NAM A2 extended mod).exe](release/HeadRush%20gigboard%20Firmware%20Updater%20(NAM%20A2%20extended%20mod).exe) |
+| **HeadRush NAM Block Manager** | Gestor de perfiles `.nam`, ordenación USB y generador de `.block` para Windows 10/11 | [release/HeadRush_NAM_Block_Manager.exe](release/HeadRush_NAM_Block_Manager.exe) |
 
-> **Página de la Release**: [v2.7 Extended Edition](https://github.com/iosumurillo/GIGBOARD_NAM_AMP_PNG/releases/tag/v2.7-nam-extended)  
+> **Código fuente completo**: [iosumurillo/Gigboard_NAM_Source](https://github.com/iosumurillo/Gigboard_NAM_Source)  
+> **Página de la Release anterior**: [v2.7 Extended Edition](https://github.com/iosumurillo/GIGBOARD_NAM_AMP_PNG/releases/tag/v2.7-nam-extended)  
 > **Guía técnica y manual de usuario detallado**: [GUIA_NAM_HEADRUSH.md](GUIA_NAM_HEADRUSH.md)
 
 ---
@@ -55,10 +57,26 @@ Para instalar el mod en tu pedalera sin necesidad de compilar código fuente:
   - El análisis y lectura de perfiles `.nam` desde la unidad USB se realiza en un hilo de baja prioridad para no bloquear la interfaz gráfica ni el audio.
 - **Gráficos Integrados en Pantalla Táctil**:
   - Gráficos integrados en los recursos QML/RCC de HeadRush: pedal vertical para Anxiety OD y cabezal horizontal apaisado para 82 LEAD 800.
+- **10 Amplificadores Custom Circuit-Modeled (Expansión a 63 Amps, DSP IDs 53–62)**:
+  - Lista ampliada sin sustituir ninguno de los 53 amplificadores originales de fábrica:
+    - **53 (`0x35`)**: Mesa Triple Crown Ch2 (`MesaTripleCrownDSP`, sobremuestreo 2x a 96 kHz)
+    - **54 (`0x36`)**: Mesa Lone Star (`MesaLoneStarDSP`)
+    - **55 (`0x37`)**: Mesa Triple Crown Lead (`MesaTripleCrownDSP` canal 3)
+    - **56 (`0x38`)**: Dumble Steel String Singer (`DumbleSSSDSP`)
+    - **57 (`0x39`)**: Dumble Overdrive Special (`DumbleODSDSP`)
+    - **58 (`0x3a`)**: Elmwood Bonneville 50 (`ElmwoodBonnevilleDSP`)
+    - **59 (`0x3b`)**: IRENE (Clean Reference Engine híbrido Dumble SSS + Mesa Lone Star)
+    - **60 (`0x3c`)**: JON (Modern Progressive Overdrive Engine de 3 voces)
+    - **61 (`0x3d`)**: 5150 Original 1992 Rhythm (`Peavey5150DSP`)
+    - **62 (`0x3e`)**: 5150 Original LEAD (`Peavey5150DSP`)
+  - Gráficos personalizados integrados en pantalla y bloques preconfigurados `MESA TC-100 CH1 CLEAN.block`, `CH2 LO-GAIN.block` y `CH3 HI-GAIN.block` en `presets/Blocks_Para_Tu_Gigboard/AMP/` (también generados automáticamente en el primer arranque).
+- **Modo Ingeniería (Dev Mode) y Medidor de CPU DSP**:
+  - `EnableDevAccess` activado por defecto y `GlobalSettings.qml` parcheado para desbloquear las 3 pantallas ocultas (`dev menu`, `ampTweak`, `fftDisplay`) con controles táctiles.
+  - Overlay de CPU del DSP (`ShowCPUTime` / `EngineInfo.qml`) visible desde el arranque.
 - **HeadRush NAM Block Manager GUI**:
   - Herramienta de escritorio moderna incluida en `release/` para detectar pendrives USB, ordenar modelos alfabéticamente, calibrar trims y generar automáticamente bloques `.block` de presets listos para usar.
 - **100+ Bloques Presets Incluidos**:
-  - En la carpeta `presets/Blocks_Para_Tu_Gigboard` encontrarás bloques ya generados para carga instantánea.
+  - En la carpeta `presets/Blocks_Para_Tu_Gigboard` encontrarás bloques ya generados para carga instantánea (`ANXIETY OD`, `ANXIETY OD V2` y `AMP`).
 
 ---
 
@@ -71,9 +89,11 @@ Gigboard_NAM/
 │   └── RECOVERY.md       # Procedimiento de recuperación a firmware oficial
 ├── presets/              # Bloques listos para transferir a la memoria de la pedalera
 │   └── Blocks_Para_Tu_Gigboard/
+│       ├── AMP/              # Presets MESA TC-100 (CH1 CLEAN, CH2 LO-GAIN, CH3 HI-GAIN)
 │       ├── ANXIETY OD/       # Presets 000 a 100 para pedal
 │       └── ANXIETY OD V2/    # Presets 000 a 100 para segunda instancia
 ├── release/              # Ejecutables listos para producción
+│   ├── HeadRush gigboard Firmware Updater (NAM + Triple Crown + Dev).exe
 │   ├── HeadRush gigboard Firmware Updater (NAM A2 extended mod).exe
 │   └── HeadRush_NAM_Block_Manager.exe
 ├── GUIA_NAM_HEADRUSH.md  # Manual técnico y guía completa de usuario
@@ -116,7 +136,7 @@ Gigboard_NAM/
 ### 1. Flashear la Pedalera
 1. Conecta tu HeadRush Gigboard a la PC mediante cable USB.
 2. En la pedalera, entra en **Global Settings -> Firmware Update**.
-3. Ejecuta `HeadRush gigboard Firmware Updater (NAM A2 extended mod).exe` desde la carpeta `release/` o descárgalo directamente desde Releases.
+3. Ejecuta `HeadRush gigboard Firmware Updater (NAM + Triple Crown + Dev).exe` (o `HeadRush gigboard Firmware Updater (NAM A2 extended mod).exe`) desde la carpeta `release/`.
 4. Sigue los pasos en pantalla hasta que la pedalera complete el flasheo y reinicie.
 
 ### 2. Cargar Modelos en el Pendrive USB
